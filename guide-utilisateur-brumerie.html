@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Brumerie — Guide Utilisateur</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --g:#16A34A;--dg:#0F5C2E;--dark:#0F172A;--muted:#64748B;
+  --border:#E2E8F0;--bg:#F8FAFC;--card:#FFFFFF;
+  --red:#EF4444;--gold:#F59E0B;--blue:#3B82F6;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--dark);line-height:1.6;font-size:15px;max-width:480px;margin:0 auto;}
+.cover{background:linear-gradient(160deg,#0F172A 0%,#0a2e18 60%,#0F5C2E 100%);padding:60px 24px 52px;text-align:center;position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(22,163,74,.3),transparent 70%);}
+.cover-emoji{font-size:72px;display:block;margin-bottom:16px;position:relative;}
+.cover-brand{font-size:40px;font-weight:900;color:#fff;letter-spacing:-2px;margin-bottom:8px;position:relative;}
+.cover-brand em{color:#4ADE80;font-style:normal;}
+.cover-tag{font-size:14px;color:rgba(255,255,255,.5);margin-bottom:36px;position:relative;}
+.cover-chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;color:#fff;}
+.nav{background:var(--dark);display:flex;overflow-x:auto;position:sticky;top:0;z-index:100;}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex-shrink:0;padding:13px 15px;color:rgba(255,255,255,.4);font-size:11px;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:.5px;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
+.nav a.on,.nav a:hover{color:#4ADE80;border-bottom-color:#4ADE80;}
+.sec{padding:36px 20px;}
+.sec+.sec{border-top:8px solid var(--bg);}
+.sec-eyebrow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--g);margin-bottom:8px;}
+.sec-title{font-size:26px;font-weight:900;color:var(--dark);letter-spacing:-1px;margin-bottom:6px;}
+.sec-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:24px;}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 10px;text-align:center;}
+.kpi-val{font-size:30px;font-weight:900;color:var(--dark);letter-spacing:-1px;line-height:1;}
+.kpi-val.green{color:var(--g);}
+.kpi-label{font-size:10px;font-weight:700;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.5px;}
+.steps{display:flex;flex-direction:column;gap:0;}
+.stp{display:flex;gap:14px;padding-bottom:24px;position:relative;}
+.stp:last-child{padding-bottom:0;}
+.stp:not(:last-child)::after{content:'';position:absolute;left:19px;top:40px;bottom:0;width:2px;background:linear-gradient(var(--border),transparent);}
+.stp-ball{width:38px;height:38px;border-radius:50%;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0;z-index:1;}
+.stp-ball.green{background:var(--g);}
+.stp-body{flex:1;padding-top:7px;}
+.stp-title{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:4px;}
+.stp-desc{font-size:13px;color:var(--muted);line-height:1.6;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:12px;}
+.card-title{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.card-body{font-size:13px;color:var(--muted);line-height:1.7;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.gitem{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 14px;}
+.gitem-ico{font-size:28px;margin-bottom:8px;}
+.gitem-t{font-size:12px;font-weight:800;color:var(--dark);margin-bottom:4px;}
+.gitem-d{font-size:11px;color:var(--muted);line-height:1.5;}
+.tip{border-radius:16px;padding:15px 16px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start;}
+.tip.g{background:#F0FDF4;border:1px solid #BBF7D0;}
+.tip.gd{background:#FFFBEB;border:1px solid #FCD34D;}
+.tip.r{background:#FEF2F2;border:1px solid #FECACA;}
+.tip.b{background:#EFF6FF;border:1px solid #BFDBFE;}
+.tip-ico{font-size:22px;flex-shrink:0;margin-top:1px;}
+.tip-t{font-size:13px;font-weight:800;margin-bottom:3px;}
+.tip-d{font-size:12px;line-height:1.65;}
+.tip.g .tip-t{color:var(--dg)}.tip.g .tip-d{color:#166534}
+.tip.gd .tip-t{color:#92400E}.tip.gd .tip-d{color:#78350F}
+.tip.r .tip-t{color:var(--red)}.tip.r .tip-d{color:#991B1B}
+.tip.b .tip-t{color:#1D4ED8}.tip.b .tip-d{color:#1E40AF}
+.pays{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.pay{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:14px 12px;display:flex;align-items:center;gap:10px;}
+.pay-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0;}
+.pay-name{font-size:13px;font-weight:800;color:var(--dark);}
+.statuses{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.st-row{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:12px;}
+.st-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.st-t{font-size:13px;font-weight:800;color:var(--dark);}
+.st-d{font-size:11px;color:var(--muted);margin-top:2px;}
+.plans{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;}
+.plan{border-radius:20px;padding:20px;border:2px solid;}
+.plan.free{background:#F8FAFC;border-color:var(--border);}
+.plan.verif{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border-color:#86EFAC;}
+.plan-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.plan-name{font-size:16px;font-weight:900;color:var(--dark);}
+.plan-price{font-size:20px;font-weight:900;color:var(--dark);letter-spacing:-1px;}
+.plan-price-sub{font-size:10px;color:var(--muted);}
+.plan-items{display:flex;flex-direction:column;gap:7px;}
+.plan-item{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;}
+.plan-item::before{content:'OK';font-size:10px;font-weight:900;color:var(--g);flex-shrink:0;margin-top:2px;}
+.refs{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.ref-row{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 15px;display:flex;align-items:center;gap:12px;}
+.ref-row.gold{border-color:#4ADE80;background:linear-gradient(135deg,#F0FDF4,#DCFCE7);}
+.ref-ball{width:44px;height:44px;border-radius:50%;background:var(--dark);color:#fff;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ref-ball.green{background:var(--g);}
+.ref-info{flex:1;}
+.ref-t{font-size:13px;font-weight:800;color:var(--dark);}
+.ref-d{font-size:11px;color:var(--muted);margin-top:2px;}
+.ref-tag{font-size:10px;font-weight:700;padding:5px 10px;border-radius:20px;background:#F0FDF4;color:var(--g);flex-shrink:0;white-space:nowrap;}
+.ref-tag.special{background:var(--g);color:#fff;}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:8px;overflow:hidden;}
+.faq-q{padding:16px 18px;font-size:14px;font-weight:700;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;}
+.faq-q span{flex:1;padding-right:12px;}
+.faq-arr{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--g);font-weight:900;flex-shrink:0;transition:transform .25s;}
+.faq-item.open .faq-arr{transform:rotate(45deg);}
+.faq-a{display:none;padding:14px 18px 16px;font-size:13px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border);}
+.faq-item.open .faq-a{display:block;}
+.sup-btns{display:flex;flex-direction:column;gap:10px;}
+.sup-btn{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:20px;text-decoration:none;transition:opacity .2s;}
+.sup-btn:active{opacity:.85;}
+.sup-btn.wa{background:#25D366;}
+.sup-btn.em{background:var(--dark);}
+.sup-ico{font-size:28px;flex-shrink:0;}
+.sup-t{font-size:15px;font-weight:800;color:#fff;}
+.sup-d{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px;}
+.footer{background:var(--dark);padding:44px 24px;text-align:center;}
+.footer-logo{font-size:32px;font-weight:900;color:#fff;letter-spacing:-1px;margin-bottom:8px;}
+.footer-logo em{color:#4ADE80;font-style:normal;}
+.footer-sub{font-size:12px;color:rgba(255,255,255,.3);line-height:1.9;}
+@media(max-width:360px){.g2,.pays,.kpis{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <span class="cover-emoji">🛍</span>
+  <div class="cover-brand"><em>Brumerie</em></div>
+  <div class="cover-tag">Ton guide pour acheter et vendre facilement en Côte d'Ivoire 🇨🇮</div>
+  <div class="cover-chips">
+    <span class="chip">📍 Abidjan & CI</span>
+    <span class="chip">💰 Mobile Money</span>
+    <span class="chip">✅ Vendeurs vérifiés</span>
+    <span class="chip">💬 Chat direct</span>
+    <span class="chip">🆓 Gratuit</span>
+  </div>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="#start">🚀 Démarrer</a>
+  <a href="#chercher">🔍 Chercher</a>
+  <a href="#acheter">🛒 Acheter</a>
+  <a href="#vendre">🏪 Vendre</a>
+  <a href="#chat">💬 Chat</a>
+  <a href="#commande">📦 Commande</a>
+  <a href="#plans">🏅 Plans</a>
+  <a href="#parrainage">🎁 Parrainage</a>
+  <a href="#faq">❓ FAQ</a>
+  <a href="#support">📞 Support</a>
+</nav>
+
+<!-- 1. DÉMARRER -->
+<section class="sec" id="start">
+  <div class="sec-eyebrow">Bienvenue</div>
+  <div class="sec-title">C'est quoi Brumerie ? 👋</div>
+  <div class="sec-sub">La marketplace ivoirienne où tu trouves tout — vêtements, téléphones, beauté, électro — directement avec des vendeurs de ton quartier, en toute confiance.</div>
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-val green">0%</div><div class="kpi-label">Commission</div></div>
+    <div class="kpi"><div class="kpi-val">10</div><div class="kpi-label">Catégories</div></div>
+    <div class="kpi"><div class="kpi-val">39+</div><div class="kpi-label">Quartiers</div></div>
+  </div>
+  <div class="tip g">
+    <div class="tip-ico">👀</div>
+    <div><div class="tip-t">Pas besoin de compte pour regarder !</div><div class="tip-d">Tu peux parcourir toutes les annonces librement sans t'inscrire. Pour mettre en favori, contacter un vendeur ou acheter, crée un compte — c'est gratuit et rapide.</div></div>
+  </div>
+  <div class="sec-eyebrow" style="margin-top:24px;margin-bottom:14px;">Créer ton compte en 3 étapes</div>
+  <div class="steps">
+    <div class="stp">
+      <div class="stp-ball">1</div>
+      <div class="stp-body"><div class="stp-title">Entre tes informations</div><div class="stp-desc">Ton nom, ton email et un mot de passe. Si quelqu'un t'a partagé un <strong>lien de parrainage</strong>, utilise-le ici pour lui offrir ses bonus !</div></div>
+    </div>
+    <div class="stp">
+      <div class="stp-ball">2</div>
+      <div class="stp-body"><div class="stp-title">Vérifie ton email</div><div class="stp-desc">Tu reçois un <strong>code à 6 chiffres</strong> par email. Entre-le dans l'app dans les 15 minutes. Vérifie les spams si tu ne le vois pas.</div></div>
+    </div>
+    <div class="stp">
+      <div class="stp-ball green">🎉</div>
+      <div class="stp-body"><div class="stp-title">Choisis : Acheteur ou Vendeur</div><div class="stp-desc">Pas de pression — tu peux changer de mode à tout moment depuis ton profil. Un guide de démarrage s'affiche pour t'aider à prendre en main l'app.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. CHERCHER -->
+<section class="sec" id="chercher">
+  <div class="sec-eyebrow">Étape 1</div>
+  <div class="sec-title">Trouver un article 🔍</div>
+  <div class="sec-sub">Plusieurs façons de trouver exactement ce que tu cherches.</div>
+  <div class="card"><div class="card-title">🔡 Barre de recherche</div><div class="card-body">Tape le nom de ce que tu cherches — <em>"iPhone 13"</em>, <em>"robe wax"</em>, <em>"mèche brésilienne"</em>. Les résultats apparaissent en temps réel pendant que tu écris.</div></div>
+  <div class="card"><div class="card-title">🏷 Par catégorie</div><div class="card-body">Clique sur une catégorie en haut de l'accueil :<br><br>👗 Mode · 🛍️ Friperie · 👟 Chaussures · 💇‍♀️ Beauté · 📱 High-Tech · ⌚ Accessoires · 📺 Électro · 🧺 Alimentation · 🍼 Bébé · 🖼️ Maison</div></div>
+  <div class="card"><div class="card-title">⚙️ Filtres avancés</div><div class="card-body">Clique sur l'icône filtre pour affiner :<br><br>💰 <strong>Prix</strong> min et max en FCFA<br>📦 <strong>État</strong> — Neuf / Comme neuf / Occasion<br>📍 <strong>Quartier</strong> — Cocody, Yopougon, Abobo...<br>🔃 <strong>Tri</strong> — Plus récent · Prix bas · Prix haut · Promotions</div></div>
+  <div class="card"><div class="card-title">🔔 Alerte de recherche</div><div class="card-body">Tu cherches quelque chose pas encore disponible ? Active une alerte ! Dès qu'un vendeur publie un article correspondant à ta recherche, tu reçois une notification automatique sur ton téléphone.</div></div>
+  <div class="tip b">
+    <div class="tip-ico">💡</div>
+    <div><div class="tip-t">Astuce quartier</div><div class="tip-d">Filtre par ton quartier pour trouver des vendeurs près de chez toi. Tu peux récupérer l'article en main propre et éviter les frais de livraison !</div></div>
+  </div>
+</section>
+
+<!-- 3. ACHETER -->
+<section class="sec" id="acheter">
+  <div class="sec-eyebrow">Étape 2</div>
+  <div class="sec-title">Acheter un article 🛒</div>
+  <div class="sec-sub">Ce que tu peux faire sur chaque annonce et comment interagir avec un vendeur.</div>
+  <div class="card"><div class="card-title">📄 Sur la fiche d'un article tu vois :</div><div class="card-body">🖼 Photos — appuie pour agrandir en plein écran<br>💰 Prix — et prix barré si c'est une promo<br>📦 État : Neuf / Comme neuf / Occasion<br>📍 Quartier(s) du vendeur<br>👤 Profil du vendeur + sa note ⭐<br>✅ Badge Vérifié si le vendeur est contrôlé<br>📝 Description complète</div></div>
+  <div class="g2">
+    <div class="gitem"><div class="gitem-ico">❤️</div><div class="gitem-t">Mettre en favori</div><div class="gitem-d">Sauvegarde les articles qui t'intéressent pour les retrouver plus tard.</div></div>
+    <div class="gitem"><div class="gitem-ico">💬</div><div class="gitem-t">Contacter</div><div class="gitem-d">Ouvre un chat direct avec le vendeur dans l'app.</div></div>
+    <div class="gitem"><div class="gitem-ico">📲</div><div class="gitem-t">WhatsApp</div><div class="gitem-d">Contacte le vendeur directement sur WhatsApp.</div></div>
+    <div class="gitem"><div class="gitem-ico">🛒</div><div class="gitem-t">Commander</div><div class="gitem-d">Lance une commande sécurisée avec preuve de paiement.</div></div>
+  </div>
+  <div class="card"><div class="card-title">💸 Négocier le prix</div><div class="card-body">Dans le chat, tu peux proposer un montant différent au vendeur. S'il accepte, tu peux immédiatement lancer la commande au prix négocié. Le vendeur peut aussi te faire une contre-offre.</div></div>
+  <div class="tip g">
+    <div class="tip-ico">✅</div>
+    <div><div class="tip-t">Préfère les vendeurs Vérifiés !</div><div class="tip-d">Le badge ✅ <strong>Vérifié</strong> signifie que l'équipe Brumerie a contrôlé ce vendeur. Tu achètes avec bien plus de confiance.</div></div>
+  </div>
+</section>
+
+<!-- 4. VENDRE -->
+<section class="sec" id="vendre">
+  <div class="sec-eyebrow">Étape 3</div>
+  <div class="sec-title">Vendre sur Brumerie 🏪</div>
+  <div class="sec-sub">Publie une annonce en moins de 2 minutes, directement depuis ton téléphone.</div>
+  <div class="tip g">
+    <div class="tip-ico">🆓</div>
+    <div><div class="tip-t">C'est totalement gratuit !</div><div class="tip-d">Brumerie ne prend <strong>aucune commission</strong> sur tes ventes. Tu reçois 100% de l'argent directement sur ton Mobile Money.</div></div>
+  </div>
+  <div class="steps">
+    <div class="stp"><div class="stp-ball">📷</div><div class="stp-body"><div class="stp-title">Ajoute tes photos (max 5)</div><div class="stp-desc">Prends des photos avec ta caméra ou importe depuis ta galerie. Des belles photos bien éclairées = plus de ventes ! Les images s'uploadent automatiquement.</div></div></div>
+    <div class="stp"><div class="stp-ball">📝</div><div class="stp-body"><div class="stp-title">Renseigne les infos</div><div class="stp-desc">Titre clair, prix de vente, ancien prix (pour afficher une promo), état de l'article et quantité disponible.</div></div></div>
+    <div class="stp"><div class="stp-ball">🗂</div><div class="stp-body"><div class="stp-title">Catégorie & lieu</div><div class="stp-desc">Sélectionne la catégorie. Indique jusqu'à <strong>3 quartiers</strong> — tu touches beaucoup plus d'acheteurs !</div></div></div>
+    <div class="stp"><div class="stp-ball">💰</div><div class="stp-body"><div class="stp-title">Configure tes paiements</div><div class="stp-desc">Indique tes numéros Wave, Orange Money, MTN ou Moov pour recevoir les paiements directement.</div></div></div>
+    <div class="stp"><div class="stp-ball green">🚀</div><div class="stp-body"><div class="stp-title">Publie !</div><div class="stp-desc">Ton annonce est en ligne immédiatement et visible par tous les utilisateurs de Brumerie.</div></div></div>
+  </div>
+  <div class="card"><div class="card-title">🏪 Personnalise ta boutique</div><div class="card-body">🎨 <strong>Couleur thème</strong> — ta couleur de boutique<br>🖼 <strong>Bannière</strong> — une belle image de couverture<br>✍️ <strong>Slogan</strong> — ex : "La mode à prix imbattable"<br>📸 <strong>Photo de profil</strong> — inspire confiance<br>🔗 <strong>Réseaux sociaux</strong> — Instagram, TikTok, Facebook...</div></div>
+  <div class="card"><div class="card-title">📊 Ton tableau de bord vendeur</div><div class="card-body">👁 Vues sur tes annonces<br>💬 Messages et contacts reçus<br>📦 Commandes en cours<br>⭐ Avis et notes clients<br>💸 Offres reçues — accepter ou refuser en un tap<br>✏️ Modifier ou supprimer tes articles</div></div>
+  <div class="tip gd">
+    <div class="tip-ico">💡</div>
+    <div><div class="tip-t">Conseils pour vendre plus vite</div><div class="tip-d">✔ 3 à 5 photos bien éclairées<br>✔ Description complète et honnête<br>✔ Réponds aux messages en moins d'1h<br>✔ Indique plusieurs quartiers<br>✔ Obtiens le badge ✅ pour inspirer confiance</div></div>
+  </div>
+</section>
+
+<!-- 5. CHAT -->
+<section class="sec" id="chat">
+  <div class="sec-eyebrow">Communication</div>
+  <div class="sec-title">La messagerie 💬</div>
+  <div class="sec-sub">Discute directement avec vendeurs et acheteurs, sans quitter l'application.</div>
+  <div class="g2">
+    <div class="gitem"><div class="gitem-ico">✉️</div><div class="gitem-t">Messages texte</div><div class="gitem-d">Conversation en temps réel, livraison instantanée.</div></div>
+    <div class="gitem"><div class="gitem-ico">🃏</div><div class="gitem-t">Carte produit</div><div class="gitem-d">Partage une fiche article dans la conversation.</div></div>
+    <div class="gitem"><div class="gitem-ico">💸</div><div class="gitem-t">Offre de prix</div><div class="gitem-d">Propose un montant, le vendeur accepte ou décline.</div></div>
+    <div class="gitem"><div class="gitem-ico">🏷</div><div class="gitem-t">Contre-offre</div><div class="gitem-d">Le vendeur peut proposer son propre prix en retour.</div></div>
+  </div>
+  <div class="tip b"><div class="tip-ico">🔔</div><div><div class="tip-t">Notifications instantanées</div><div class="tip-d">Tu reçois une notification push dès qu'un message arrive, même si l'app est fermée. Active les notifications pour ne rien rater !</div></div></div>
+  <div class="tip gd"><div class="tip-ico">⚠️</div><div><div class="tip-t">Limite du plan gratuit</div><div class="tip-d">Avec le plan Simple, tu peux ouvrir <strong>5 nouvelles conversations par jour</strong>. Passe au plan Vérifié pour des chats illimités.</div></div></div>
+</section>
+
+<!-- 6. COMMANDE -->
+<section class="sec" id="commande">
+  <div class="sec-eyebrow">Achat sécurisé</div>
+  <div class="sec-title">Passer une commande 📦</div>
+  <div class="sec-sub">Processus sécurisé avec preuve de paiement Mobile Money.</div>
+  <div class="pays">
+    <div class="pay"><div class="pay-dot" style="background:#1BA6F9"></div><div class="pay-name">Wave</div></div>
+    <div class="pay"><div class="pay-dot" style="background:#FF7900"></div><div class="pay-name">Orange Money</div></div>
+    <div class="pay"><div class="pay-dot" style="background:#FFCC00"></div><div class="pay-name">MTN MoMo</div></div>
+    <div class="pay"><div class="pay-dot" style="background:#FF6B00"></div><div class="pay-name">Moov Money</div></div>
+  </div>
+  <div class="steps">
+    <div class="stp"><div class="stp-ball">1</div><div class="stp-body"><div class="stp-title">Clique sur "Commander"</div><div class="stp-desc">Choisis <strong>livraison</strong> ou <strong>main propre</strong>. Le montant total s'affiche avec les éventuels frais de livraison.</div></div></div>
+    <div class="stp"><div class="stp-ball">2</div><div class="stp-body"><div class="stp-title">Vire l'argent au vendeur</div><div class="stp-desc">Le numéro Mobile Money du vendeur s'affiche. Ouvre ton app de paiement et effectue le virement. Le numéro se <strong>copie en un seul tap</strong> !</div></div></div>
+    <div class="stp"><div class="stp-ball">3</div><div class="stp-body"><div class="stp-title">Envoie ta preuve de paiement</div><div class="stp-desc">Fais une <strong>capture d'écran</strong> de ta transaction et uploade-la dans l'app. Saisis aussi la référence de transaction. C'est ta garantie.</div></div></div>
+    <div class="stp"><div class="stp-ball">4</div><div class="stp-body"><div class="stp-title">Le vendeur confirme</div><div class="stp-desc">Il reçoit une notification, vérifie ta preuve et confirme. Si pas de réponse en 24h, la commande est automatiquement résolue en ta faveur.</div></div></div>
+    <div class="stp"><div class="stp-ball green">⭐</div><div class="stp-body"><div class="stp-title">Laisse un avis !</div><div class="stp-desc">Après réception, note le vendeur de 1 à 5 étoiles et laisse un commentaire. Ça aide les autres acheteurs !</div></div></div>
+  </div>
+  <div class="statuses">
+    <div class="st-row"><div class="st-dot" style="background:#F59E0B"></div><div><div class="st-t">⏳ En attente</div><div class="st-d">Commande créée, paiement pas encore envoyé</div></div></div>
+    <div class="st-row"><div class="st-dot" style="background:#3B82F6"></div><div><div class="st-t">📤 Preuve envoyée</div><div class="st-d">Tu as uploadé ta capture d'écran</div></div></div>
+    <div class="st-row"><div class="st-dot" style="background:#16A34A"></div><div><div class="st-t">✅ Confirmé</div><div class="st-d">Le vendeur a bien reçu ton paiement</div></div></div>
+    <div class="st-row"><div class="st-dot" style="background:#4ADE80"></div><div><div class="st-t">🎉 Livré</div><div class="st-d">Article reçu — pense à laisser un avis !</div></div></div>
+    <div class="st-row"><div class="st-dot" style="background:#EF4444"></div><div><div class="st-t">🚨 Litige</div><div class="st-d">Problème signalé — contacte le support</div></div></div>
+  </div>
+  <div class="tip r"><div class="tip-ico">🚨</div><div><div class="tip-t">Attention aux arnaques</div><div class="tip-d">Ne paye jamais sans passer par le système de commande de l'app. Garde toujours ta capture d'écran. En cas de problème, contacte le support Brumerie immédiatement.</div></div></div>
+</section>
+
+<!-- 7. PLANS -->
+<section class="sec" id="plans">
+  <div class="sec-eyebrow">Abonnements</div>
+  <div class="sec-title">Gratuit ou Vérifié ? 🏅</div>
+  <div class="sec-sub">Le plan gratuit suffit pour commencer. Le plan Vérifié est pour les vendeurs sérieux qui veulent plus de visibilité et de crédibilité.</div>
+  <div class="plans">
+    <div class="plan free">
+      <div class="plan-top"><div class="plan-name">🆓 Plan Simple</div><div><div class="plan-price">Gratuit</div><div class="plan-price-sub">pour toujours</div></div></div>
+      <div class="plan-items">
+        <div class="plan-item">5 annonces actives en même temps</div>
+        <div class="plan-item">5 nouvelles conversations par jour</div>
+        <div class="plan-item">Accès à toutes les fonctionnalités</div>
+        <div class="plan-item">0% commission sur les ventes</div>
+      </div>
+    </div>
+    <div class="plan verif">
+      <div class="plan-top"><div class="plan-name">✅ Plan Vérifié</div><div><div class="plan-price">2 000</div><div class="plan-price-sub">FCFA / mois</div></div></div>
+      <div class="plan-items">
+        <div class="plan-item">20 annonces actives en même temps</div>
+        <div class="plan-item">Conversations illimitées chaque jour</div>
+        <div class="plan-item">Badge ✅ sur toutes tes annonces</div>
+        <div class="plan-item">Plus de confiance des acheteurs</div>
+        <div class="plan-item">0% commission sur les ventes</div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-eyebrow" style="margin-bottom:14px;">Obtenir le badge ✅ en 3 étapes</div>
+  <div class="steps">
+    <div class="stp"><div class="stp-ball">1</div><div class="stp-body"><div class="stp-title">Va sur la page Vérification</div><div class="stp-desc">Ton profil vendeur → bouton "Obtenir le badge Vérifié"</div></div></div>
+    <div class="stp"><div class="stp-ball">2</div><div class="stp-body"><div class="stp-title">Paye 2 000 FCFA par Mobile Money</div><div class="stp-desc">Vire le montant sur le numéro Brumerie affiché (Wave / Orange Money / MTN / Moov)</div></div></div>
+    <div class="stp"><div class="stp-ball green">✅</div><div class="stp-body"><div class="stp-title">L'admin active ton badge</div><div class="stp-desc">Ton badge ✅ s'affiche sur toutes tes annonces et ton profil. Les acheteurs te font plus confiance !</div></div></div>
+  </div>
+  <div class="tip g"><div class="tip-ico">🎁</div><div><div class="tip-t">Obtiens le badge GRATUITEMENT !</div><div class="tip-d">Parraine <strong>50 amis</strong> qui s'inscrivent sur Brumerie → tu reçois <strong>1 mois de Badge Vérifié offert</strong> automatiquement, sans rien payer !</div></div></div>
+</section>
+
+<!-- 8. PARRAINAGE -->
+<section class="sec" id="parrainage">
+  <div class="sec-eyebrow">Programme Bonus</div>
+  <div class="sec-title">Parraine tes amis 🎁</div>
+  <div class="sec-sub">Partage ton lien unique. À chaque palier atteint, tu gagnes des avantages automatiquement !</div>
+  <div class="card"><div class="card-title">🔗 Comment ça marche ?</div><div class="card-body">Tu as un <strong>code unique</strong> (ex : KOFFI-X7K2) et un <strong>lien personnalisé</strong>. Quand un ami s'inscrit via ton lien et devient actif, il est comptabilisé. Les récompenses se débloquent automatiquement selon les paliers.</div></div>
+  <div class="refs">
+    <div class="ref-row"><div class="ref-ball">10</div><div class="ref-info"><div class="ref-t">10 amis parrainés</div><div class="ref-d">+1 publication supplémentaire / mois</div></div><div class="ref-tag">+1 pub</div></div>
+    <div class="ref-row"><div class="ref-ball">15</div><div class="ref-info"><div class="ref-t">15 amis parrainés</div><div class="ref-d">+1 publication + +1 conversation/jour</div></div><div class="ref-tag">+1 chat</div></div>
+    <div class="ref-row"><div class="ref-ball">20</div><div class="ref-info"><div class="ref-t">20 amis parrainés</div><div class="ref-d">+2 publications + +1 conversation/jour</div></div><div class="ref-tag">+2 pub</div></div>
+    <div class="ref-row"><div class="ref-ball">30</div><div class="ref-info"><div class="ref-t">30 amis parrainés</div><div class="ref-d">+3 publications + +2 conversations/jour</div></div><div class="ref-tag">+3 pub</div></div>
+    <div class="ref-row gold"><div class="ref-ball green">50</div><div class="ref-info"><div class="ref-t">🏆 50 amis parrainés</div><div class="ref-d">Badge ✅ Vérifié 1 mois OFFERT + +5 publications</div></div><div class="ref-tag special">Gratuit !</div></div>
+  </div>
+  <div class="tip b"><div class="tip-ico">📲</div><div><div class="tip-t">Où trouver ton lien ?</div><div class="tip-d">Dans l'app → ton profil → <strong>"Parrainage"</strong>. Copie en un tap et partage sur WhatsApp, TikTok, Instagram, Snapchat...</div></div></div>
+</section>
+
+<!-- 9. FAQ -->
+<section class="sec" id="faq">
+  <div class="sec-eyebrow">Aide</div>
+  <div class="sec-title">Questions fréquentes ❓</div>
+  <div class="sec-sub">Clique sur une question pour voir la réponse.</div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>C'est quoi le badge ✅ Vérifié ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Le badge Vérifié signifie que l'équipe Brumerie a contrôlé ce vendeur. C'est un gage de confiance pour les acheteurs. Il coûte 2 000 FCFA/mois, ou s'obtient gratuitement en parrainant 50 amis.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Brumerie prend une commission sur mes ventes ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Non ! Zéro commission. Tu reçois 100% du montant de ta vente directement sur ton Mobile Money. Brumerie est entièrement gratuit pendant cette phase de lancement.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Je n'ai pas reçu mon code OTP par email ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Vérifie d'abord tes spams. Le code est valable 15 minutes. Si tu ne l'as toujours pas reçu, contacte le support WhatsApp ou essaie avec une autre adresse email.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Puis-je passer de Vendeur à Acheteur ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Oui, à tout moment ! Profil → paramètres → "Changer de mode". Tu peux repasser Vendeur quand tu veux. Tes annonces restent sauvegardées.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Combien d'annonces puis-je publier ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Plan Simple (gratuit) : 5 annonces actives en même temps. Plan Vérifié (2 000 FCFA/mois) : 20 annonces. Tu peux aussi augmenter cette limite gratuitement via le parrainage.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Je n'ai pas reçu mon article, que faire ?</span><div class="faq-arr">＋</div></div><div class="faq-a">1. Contacte le vendeur via le chat. 2. Si pas de réponse dans les 24h, ouvre un litige depuis la page de ta commande. 3. Contacte le support Brumerie sur WhatsApp avec ton numéro de commande et ta preuve de paiement.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Comment modifier ou supprimer mon annonce ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Tableau de bord → onglet "Articles" → clique sur l'article → "Modifier" pour éditer ou "Supprimer" pour retirer l'annonce. La suppression est immédiate.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Peut-on installer Brumerie sur son téléphone ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Oui ! Sur Safari (iPhone) → icône Partager → "Sur l'écran d'accueil". Sur Chrome (Android) → menu ⋮ → "Ajouter à l'écran d'accueil". L'app s'installe sans passer par le Play Store ou l'App Store.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Mes données sont-elles sécurisées ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Oui. Brumerie utilise Firebase (Google) avec connexion HTTPS chiffrée. Aucun mot de passe n'est stocké en clair. Seul toi et l'admin Brumerie peuvent voir ton profil complet.</div></div>
+  <div class="faq-item"><div class="faq-q" onclick="tog(this)"><span>Comment fonctionne l'alerte de recherche ?</span><div class="faq-arr">＋</div></div><div class="faq-a">Fais une recherche avec tes filtres sur l'accueil, puis clique sur l'icône 🔔. Dès qu'un vendeur publie un article correspondant à ta recherche, tu reçois une notification push sur ton téléphone.</div></div>
+</section>
+
+<!-- 10. SUPPORT -->
+<section class="sec" id="support">
+  <div class="sec-eyebrow">Aide</div>
+  <div class="sec-title">On est là pour toi 📞</div>
+  <div class="sec-sub">Une question, un problème, une suggestion ? Contacte-nous directement.</div>
+  <div class="sup-btns">
+    <a href="https://wa.me/2250586867693" class="sup-btn wa">
+      <div class="sup-ico">📲</div>
+      <div><div class="sup-t">WhatsApp Support</div><div class="sup-d">+225 05 86 86 76 93 — Réponse rapide</div></div>
+    </a>
+    <a href="mailto:contact.brumerie@gmail.com" class="sup-btn em">
+      <div class="sup-ico">📧</div>
+      <div><div class="sup-t">Email Support</div><div class="sup-d">contact.brumerie@gmail.com</div></div>
+    </a>
+  </div>
+  <div class="tip g" style="margin-top:16px;"><div class="tip-ico">⚡</div><div><div class="tip-t">Délai de réponse</div><div class="tip-d">WhatsApp : en moins d'1 heure en journée.<br>Email : sous 24 heures.</div></div></div>
+  <div class="tip b"><div class="tip-ico">📝</div><div><div class="tip-t">Pour aller plus vite, précise :</div><div class="tip-d">• Ton nom et email d'inscription<br>• Le problème exact rencontré<br>• Une capture d'écran si possible<br>• Ton numéro de commande si concerné</div></div></div>
+</section>
+
+<div class="footer">
+  <div class="footer-logo">🛍 <em>Brumerie</em></div>
+  <div class="footer-sub">
+    La marketplace de confiance de Côte d'Ivoire 🇨🇮<br>
+    Gratuit · Sécurisé · Mobile Money<br><br>
+    📲 +225 05 86 86 76 93<br>
+    📧 contact.brumerie@gmail.com<br><br>
+    Guide Utilisateur v1.0
+  </div>
+</div>
+
+<script>
+function tog(btn){
+  const item=btn.parentElement;
+  const was=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!was)item.classList.add('open');
+}
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav a');
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(a=>a.classList.remove('on'));
+      const a=document.querySelector('.nav a[href="#'+e.target.id+'"]');
+      if(a){a.classList.add('on');a.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});}
+    }
+  });
+},{threshold:0.35});
+secs.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
